@@ -4,10 +4,10 @@
 ;~ _ADFunc_Divers_Upd(3, $TMDb)
 
 ;~ _TMDb_GetListByClassment_Exemple()
-;~ _TMDb_FilmSearch_Exemple()
+_TMDb_FilmSearch_Exemple()
 ;~ _TMDb_FilmID_GetDetails_Exemple()
-_TMDb_FilmID_GetVideos_Exemple()
-_TMDb_FilmID_GetImages_Exemple()
+;~ _TMDb_FilmID_GetVideos_Exemple()
+;~ _TMDb_FilmID_GetImages_Exemple()
 
 Func _TMDb_GetListByClassment_Exemple()
 	Local $TMDb
@@ -29,7 +29,7 @@ Func _TMDb_FilmSearch_Exemple()
 	Local $InputBox
 	;	Fair une recherche d'un film et rechercher les infos des films trouver
 	_ADFunc_Divers_Upd(3, "Fair une recherche d'un film et rechercher les infos des films trouver")
-	$InputBox = InputBox("Rechercher", "Film a rechercher ?", "Tomb Raider", "", 500, 135)
+	$InputBox = InputBox("Rechercher", "Film a rechercher ?", "fight club", "", 500, 135)
 	If Not @error And $InputBox <> '' Then
 		$TMDb = _TMDb_FilmSearch($TMDb_ArrAy_RF, $InputBox)
 		If Not @error Then
