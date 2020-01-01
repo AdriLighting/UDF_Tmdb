@@ -27,6 +27,8 @@
 ; _EncodeToUrl
 ; ===============================================================================================================================
 
+Global _TMDb_ApiKey = "6137480d1f5c743c3fa069c9929c0f01"
+
 ; #GLOBAL CONSTANTS KEY# ========================================================================================================
 Global $TMDb_ArrAy_RF[11][2] = [["vote_count", ""], ["id", ""], ["vote_average", ""], _ ; Key pour la recherche des films
 		["title", ""], ["popularity", ""], ["poster_path", ""], _
@@ -85,7 +87,7 @@ Func _TMDb_GetListByClassment(ByRef $aArraySBC, $aMaxPage = 1, $aType = 'top_rat
 			$NbrPage += 1
 		Next
 	Else
-		$api = "https://api.themoviedb.org/3/movie/" & $aType & "?api_key=6137480d1f5c743c3fa069c9929c0f01&language=fr-FR&page=" & $NbrPage
+		$api = "https://api.themoviedb.org/3/movie/" & $aType & "?api_key=" & _TMDb_ApiKey & "&language=fr-FR&page=" & $NbrPage
 		_ADFunc_Inet_InetGet($api, $sOutFilePath)
 	EndIf
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
@@ -108,7 +110,7 @@ EndFunc   ;==>_TMDb_GetListByClassment
 Func _TMDb_FilmSearch(ByRef $aArraySF, $aSearch, $sOutFilePath = @ScriptDir & '\TMDb_Search.txt')
 	If FileExists($sOutFilePath) Then FileDelete($sOutFilePath)
 
-	Local $api = "https://api.themoviedb.org/3/search/movie?api_key=6137480d1f5c743c3fa069c9929c0f01&query=" & _EncodeToUrl($aSearch)
+	Local $api = "https://api.themoviedb.org/3/search/movie?api_key="& _TMDb_ApiKey & "&query=" & _EncodeToUrl($aSearch)
 
 	_ADFunc_Inet_InetGet($api, $sOutFilePath)
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
@@ -352,7 +354,7 @@ Func _TMDb_FilmSearch_SavToIni(ByRef $aArray, $aIni = @ScriptDir & '\TMDb_Search
 EndFunc   ;==>_TMDb_FilmSearch_SavToIni
 Func _TMDb_FilmID_GetDetailByKey($aKey, $aFilmId, $sOutFilePath = @ScriptDir & '\TMDb_FilmID.txt')
 	If FileExists($sOutFilePath) Then FileDelete($sOutFilePath)
-	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "?api_key=6137480d1f5c743c3fa069c9929c0f01&language=fr-FR"
+	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "?api_key=" & _TMDb_ApiKey & "&language=fr-FR"
 	_ADFunc_Inet_InetGet($sApiUrl, $sOutFilePath)
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
 	Local $sFR = FileReadLine($sOutFilePath, 1)
@@ -366,7 +368,7 @@ EndFunc   ;==>_TMDb_FilmID_GetDetailByKey
 ;	Retun FilmInfos in Array2D : 0 = Value Name, 1 = Value
 Func _TMDb_FilmID_GetDetails(ByRef $aArray, $aFilmId, $sOutFilePath = @ScriptDir & '\TMDb_FilmID.txt')
 	If FileExists($sOutFilePath) Then FileDelete($sOutFilePath)
-	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "?api_key=6137480d1f5c743c3fa069c9929c0f01&language=fr-FR"
+	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "?api_key=" & _TMDb_ApiKey & "&language=fr-FR"
 	_ADFunc_Inet_InetGet($sApiUrl, $sOutFilePath)
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
 	Local $sFR = FileReadLine($sOutFilePath, 1)
@@ -489,7 +491,7 @@ EndFunc   ;==>_TMDb_FilmID_GetDetails_SavToIni
 Func _TMDb_FilmID_GetVideos(ByRef $aArray, $aFilmId, $sOutFilePath = @ScriptDir & '\TMDb_FilmID_GetVideos.txt')
 	If FileExists($sOutFilePath) Then FileDelete($sOutFilePath)
 
-	Local $api = "https://api.themoviedb.org/3/movie/" & $aFilmId & "/videos?api_key=6137480d1f5c743c3fa069c9929c0f01&language=fr-FR"
+	Local $api = "https://api.themoviedb.org/3/movie/" & $aFilmId & "/videos?api_key=" & _TMDb_ApiKey & "&language=fr-FR"
 
 	_ADFunc_Inet_InetGet($api, $sOutFilePath)
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
@@ -573,7 +575,7 @@ EndFunc   ;==>_TMDb_FilmID_GetVideos_SavToIni
 ;	Retun 2 1d array , 1st = poster, 2st = backdrops
 Func _TMDb_FilmID_GetImages($aFilmId, $sOutFilePath = @ScriptDir & '\TMDb_GetImages.txt')
 	If FileExists($sOutFilePath) Then FileDelete($sOutFilePath)
-	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "/images?api_key=6137480d1f5c743c3fa069c9929c0f01"
+	Local $sApiUrl = "https://api.themoviedb.org/3/movie/" & $aFilmId & "/images?api_key=" & _TMDb_ApiKey
 	_ADFunc_Inet_InetGet($sApiUrl, $sOutFilePath, '', False)
 	If Not FileExists($sOutFilePath) Then Return SetError(1)
 	Local $sFR = FileReadLine($sOutFilePath, 1)
